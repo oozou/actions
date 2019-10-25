@@ -12,6 +12,4 @@ RUN apk update \
 FROM ruby:alpine
 COPY --from=builder /usr/local/ /usr/local/
 COPY . /action
-ENV GITHUB_WORKSPACE=/action/rubocop
-ENV RUBOCOP_VERSION=latest
 ENTRYPOINT ["/action/entrypoint.sh"]
