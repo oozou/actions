@@ -1,8 +1,6 @@
 FROM ruby:alpine as builder
 
 RUN apk add --no-cache build-base \
-  && addgroup -S rubocop \
-  && adduser -S -g rubocop rubocop \
   && gem install rubocop --no-document \
   && rm -rf /usr/local/bundle/cache/*.gem \
   && find /usr/local/bundle/gems/ -name "*.c" -delete \
@@ -17,6 +15,8 @@ LABEL "com.github.actions.icon"="flag"
 LABEL "com.github.actions.color"="red"
 
 FROM ruby:alpine
+RUN addgroup -S rubocop && \
+  adduser -S -g rubocop rubocop
 COPY --from=builder /usr/local/ /usr/local/
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
