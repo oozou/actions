@@ -16,5 +16,5 @@ RUN addgroup -S rubocop && \
 
 RUN gem install rubocop --no-document
 
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+COPY --chown=rubocop:rubocop entrypoint.sh /usr/local/entrypoint.sh
+ENTRYPOINT ["/usr/local/entrypoint.sh"]
